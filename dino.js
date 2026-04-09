@@ -50,16 +50,16 @@ window.onload = function() {
     context = board.getContext("2d");
 
     dinoImg = new Image();
-    dinoImg.src = "./img/dino.png";
+    dinoImg.src = "./dino.png";
 
     cactus1Img = new Image();
-    cactus1Img.src = "./img/cactus1.png";
+    cactus1Img.src = "./cactus1.png";
 
     cactus2Img = new Image();
-    cactus2Img.src = "./img/cactus2.png";
+    cactus2Img.src = "./cactus2.png";
 
     cactus3Img = new Image();
-    cactus3Img.src = "./img/cactus3.png";
+    cactus3Img.src = "./cactus3.png";
 
     requestAnimationFrame(update);
     setInterval(placeCactus, 1000);
@@ -97,7 +97,7 @@ function update() {
 
         if (detectCollision(dino, cactus)) {
             gameOver = true;
-            dinoImg.src = "./img/dino-dead.png";
+            dinoImg.src = "./dino-dead.png";
 
             // update high score
             if (score > highScore) {
@@ -136,7 +136,7 @@ function resetGame() {
 
     cactusArray = [];
 
-    dinoImg.src = "./img/dino.png";
+    dinoImg.src = "./dino.png";
 }
 
 function placeCactus() {
@@ -182,3 +182,4 @@ function detectCollision(a, b) {
            a.y < b.y + b.height &&
            a.y + a.height > b.y;
 }
+
