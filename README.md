@@ -1,0 +1,1 @@
+Players control a Tyrannosaurus Rex that runs automatically across a desert landscape, jumping over cacti and ducking under pterodactyls by using the spacebar, up arrow, or screen taps
