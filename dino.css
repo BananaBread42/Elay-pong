@@ -1,0 +1,25 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+#board {
+    background-color: lightgrey;
+    border-bottom: 1px solid black;
+}
+
+.back-button{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 8px 14px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 6px;
+}
+
+.back-button:hover{
+    background-color: grey;
+}
