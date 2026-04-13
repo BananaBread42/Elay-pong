@@ -5,17 +5,15 @@ let context;
 let boardWidth = 500;
 let boardHeight = 500;
 
-// player paddle
+// left paddle (Player 1)
 let playerWidth = 10;
 let playerHeight = 80;
-let playerX = 10;
-let playerY = boardHeight / 2 - playerHeight / 2;
+let player1X = 10;
+let player1Y = boardHeight / 2 - playerHeight / 2;
 
-// computer paddle
-let aiWidth = 10;
-let aiHeight = 80;
-let aiX = boardWidth - aiWidth - 10;
-let aiY = boardHeight / 2 - aiHeight / 2;
+// right paddle (Player 2)
+let player2X = boardWidth - 20;
+let player2Y = boardHeight / 2 - playerHeight / 2;
 
 // ball
 let ballSize = 10;
@@ -25,8 +23,8 @@ let ballSpeedX = 3;
 let ballSpeedY = 2;
 
 // score
-let playerScore = 0;
-let aiScore = 0;
+let player1Score = 0;
+let player2Score = 0;
 
 window.onload = function () {
     board = document.getElementById("board");
@@ -34,7 +32,7 @@ window.onload = function () {
     board.height = boardHeight;
     context = board.getContext("2d");
 
-    document.addEventListener("mousemove", movePlayer);
+    document.addEventListener("keydown", movePaddles);
 
     requestAnimationFrame(update);
 };
@@ -42,13 +40,12 @@ window.onload = function () {
 function update() {
     requestAnimationFrame(update);
 
-    // clear
     context.clearRect(0, 0, board.width, board.height);
 
     // draw paddles
     context.fillStyle = "white";
-    context.fillRect(playerX, playerY, playerWidth, playerHeight);
-    context.fillRect(aiX, aiY, aiWidth, aiHeight);
+    context.fillRect(player1X, player1Y, playerWidth, playerHeight);
+    context.fillRect(player2X, player2Y, playerWidth, playerHeight);
 
     // move ball
     ballX += ballSpeedX;
@@ -59,39 +56,33 @@ function update() {
         ballSpeedY *= -1;
     }
 
-    // paddle collision (player)
+    // paddle collision (left)
     if (
-        ballX <= playerX + playerWidth &&
-        ballY >= playerY &&
-        ballY <= playerY + playerHeight
+        ballX <= player1X + playerWidth &&
+        ballY >= player1Y &&
+        ballY <= player1Y + playerHeight
     ) {
         ballSpeedX *= -1;
     }
 
-    // paddle collision (AI)
+    // paddle collision (right)
     if (
-        ballX + ballSize >= aiX &&
-        ballY >= aiY &&
-        ballY <= aiY + aiHeight
+        ballX + ballSize >= player2X &&
+        ballY >= player2Y &&
+        ballY <= player2Y + playerHeight
     ) {
         ballSpeedX *= -1;
     }
 
-    // score
+    // scoring
     if (ballX <= 0) {
-        aiScore++;
-        resetBall();
-    }
-    if (ballX >= boardWidth) {
-        playerScore++;
+        player2Score++;
         resetBall();
     }
 
-    // simple AI movement
-    if (aiY + aiHeight / 2 < ballY) {
-        aiY += 2;
-    } else {
-        aiY -= 2;
+    if (ballX >= boardWidth) {
+        player1Score++;
+        resetBall();
     }
 
     // draw ball
@@ -99,18 +90,25 @@ function update() {
 
     // draw score
     context.font = "20px Courier New";
-    context.fillText(playerScore, boardWidth / 4, 30);
-    context.fillText(aiScore, (3 * boardWidth) / 4, 30);
+    context.fillText(player1Score, boardWidth / 4, 30);
+    context.fillText(player2Score, (3 * boardWidth) / 4, 30);
 }
 
-function movePlayer(e) {
-    let rect = board.getBoundingClientRect();
-    playerY = e.clientY - rect.top - playerHeight / 2;
+function movePaddles(e) {
+    // Player 1 (W/S)
+    if (e.code === "KeyW" && player1Y > 0) {
+        player1Y -= 20;
+    }
+    if (e.code === "KeyS" && player1Y < boardHeight - playerHeight) {
+        player1Y += 20;
+    }
 
-    // keep inside board
-    if (playerY < 0) playerY = 0;
-    if (playerY > boardHeight - playerHeight) {
-        playerY = boardHeight - playerHeight;
+    // Player 2 (Arrow keys)
+    if (e.code === "ArrowUp" && player2Y > 0) {
+        player2Y -= 20;
+    }
+    if (e.code === "ArrowDown" && player2Y < boardHeight - playerHeight) {
+        player2Y += 20;
     }
 }
 
