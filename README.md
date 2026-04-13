@@ -1,1 +1,1 @@
-Players control a Tyrannosaurus Rex that runs automatically across a desert landscape, jumping over cacti and ducking under pterodactyls by using the spacebar, up arrow, or screen taps
+This a game that is basicaly the online version of table tennis but single player and your opponent isnt Ai but is just a wall.
