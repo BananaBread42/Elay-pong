@@ -4,9 +4,13 @@ body {
     text-align: center;
 }
 
+body{
+    text-align: center;
+}
 #board {
-    background-color: lightgrey;
-    border-bottom: 1px solid black;
+    background-color: black;
+    border-top: 5px solid skyblue;
+    border-bottom: 5px solid skyblue;
 }
 
 .back-button{
